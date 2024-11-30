@@ -3,11 +3,11 @@ import React from 'react';
 interface AdPlacementProps {
   id: string;
   className?: string;
+  format?: 'auto' | 'horizontal' | 'vertical' | 'rectangle';
 }
 
-export function AdPlacement({ id, className = '' }: AdPlacementProps) {
+export function AdPlacement({ id, className = '', format = 'auto' }: AdPlacementProps) {
   React.useEffect(() => {
-    // Initialize ad after component mounts
     try {
       if (window.adsbygoogle) {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -17,14 +17,27 @@ export function AdPlacement({ id, className = '' }: AdPlacementProps) {
     }
   }, []);
 
+  const getAdSize = () => {
+    switch (format) {
+      case 'horizontal':
+        return { width: '728px', height: '90px' };
+      case 'vertical':
+        return { width: '160px', height: '600px' };
+      case 'rectangle':
+        return { width: '300px', height: '250px' };
+      default:
+        return { display: 'block' };
+    }
+  };
+
   return (
     <div className={`ad-placement ${className}`}>
       <ins
         className="adsbygoogle"
-        style={{ display: 'block' }}
-        data-ad-client="ca-pub-YOUR_AD_CLIENT_ID"
+        style={getAdSize()}
+        data-ad-client="ca-pub-8990270107417757"
         data-ad-slot={id}
-        data-ad-format="auto"
+        data-ad-format={format}
         data-full-width-responsive="true"
       />
     </div>

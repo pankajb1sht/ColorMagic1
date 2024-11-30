@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Twitter, Linkedin, Mail, Instagram, Share2, Globe } from 'lucide-react';
+import { Twitter, Linkedin, Mail, Instagram, Share2, Globe, Book } from 'lucide-react';
 
 export function Footer() {
   const { t, i18n } = useTranslation();
@@ -57,8 +57,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/image-extractor" className="text-base text-gray-500 hover:text-gray-900">
-                  {t('aiColorExtractor')}
+                <Link to="/blog" className="text-base text-gray-500 hover:text-gray-900">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/color-psychology-in-design" className="text-base text-gray-500 hover:text-gray-900">
+                  Color Psychology
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/color-accessibility-guide" className="text-base text-gray-500 hover:text-gray-900">
+                  Accessibility Guide
                 </Link>
               </li>
             </ul>
@@ -71,13 +81,18 @@ export function Footer() {
             </h3>
             <ul className="mt-4 space-y-4">
               <li>
-                <Link to="/" className="text-base text-gray-500 hover:text-gray-900">
-                  {t('textToColor')}
+                <Link to="/random-palette" className="text-base text-gray-500 hover:text-gray-900">
+                  Random Generator
                 </Link>
               </li>
               <li>
                 <Link to="/image-extractor" className="text-base text-gray-500 hover:text-gray-900">
-                  {t('imageExtractor')}
+                  AI Color Extractor
+                </Link>
+              </li>
+              <li>
+                <Link to="/background-removal" className="text-base text-gray-500 hover:text-gray-900">
+                  Remove Background
                 </Link>
               </li>
             </ul>
@@ -134,12 +149,12 @@ export function Footer() {
               <input
                 type="text"
                 readOnly
-                value={`<a href="${window.location.href}" target="_blank" rel="dofollow">Generated with TextToColor</a>`}
+                value={`<a href="${window.location.href}" target="_blank" rel="dofollow">Generated with ColorMagic</a>`}
                 className="block w-full pr-10 sm:text-sm border-gray-300 rounded-md"
               />
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(`<a href="${window.location.href}" target="_blank" rel="dofollow">Generated with TextToColor</a>`);
+                  navigator.clipboard.writeText(`<a href="${window.location.href}" target="_blank" rel="dofollow">Generated with ColorMagic</a>`);
                   toast.success(t('codeCopied'));
                 }}
                 className="absolute inset-y-0 right-0 px-3 flex items-center bg-gray-50 rounded-r-md border-l hover:bg-gray-100"
@@ -153,7 +168,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-gray-200">
           <p className="text-base text-gray-400 text-center">
-            &copy; {new Date().getFullYear()} TextToColor. {t('allRightsReserved')}
+            &copy; {new Date().getFullYear()} ColorMagic. {t('allRightsReserved')}
           </p>
         </div>
       </div>

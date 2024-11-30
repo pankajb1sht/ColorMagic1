@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Palette, Heart, Wrench, ImageDown, Shuffle, LogIn, Eraser } from 'lucide-react';
+import { Palette, Heart, Wrench, ImageDown, Shuffle, LogIn, Eraser, Book } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
 
 export function Navbar() {
   const [showTools, setShowTools] = useState(false);
+  const [showBlog, setShowBlog] = useState(false);
   const location = useLocation();
   const { user, signInWithGoogle, signOut } = useAuthStore();
   let toolsTimeout: NodeJS.Timeout;
+  let blogTimeout: NodeJS.Timeout;
 
   const handleToolsEnter = () => {
     clearTimeout(toolsTimeout);
@@ -17,15 +19,28 @@ export function Navbar() {
   const handleToolsLeave = () => {
     toolsTimeout = setTimeout(() => {
       setShowTools(false);
-    }, 300); // Delay before hiding the dropdown
+    }, 300);
+  };
+
+  const handleBlogEnter = () => {
+    clearTimeout(blogTimeout);
+    setShowBlog(true);
+  };
+
+  const handleBlogLeave = () => {
+    blogTimeout = setTimeout(() => {
+      setShowBlog(false);
+    }, 300);
   };
 
   const handleDropdownEnter = () => {
     clearTimeout(toolsTimeout);
+    clearTimeout(blogTimeout);
   };
 
   const handleDropdownLeave = () => {
     setShowTools(false);
+    setShowBlog(false);
   };
 
   return (
@@ -106,6 +121,52 @@ export function Navbar() {
                       >
                         <Eraser className="mr-3 h-5 w-5 text-gray-400 group-hover:text-indigo-500" />
                         Remove Background
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div 
+                className="relative"
+                onMouseEnter={handleBlogEnter}
+                onMouseLeave={handleBlogLeave}
+              >
+                <button 
+                  className={`${
+                    location.pathname.startsWith('/blog')
+                      ? 'border-indigo-500 text-gray-900'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                >
+                  <Book className="w-4 h-4 mr-1" />
+                  Blog
+                </button>
+                
+                {/* Blog Dropdown */}
+                {showBlog && (
+                  <div 
+                    className="absolute z-10 left-0 mt-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                    onMouseEnter={handleDropdownEnter}
+                    onMouseLeave={handleDropdownLeave}
+                  >
+                    <div className="py-1" role="menu">
+                      <Link
+                        to="/blog/color-psychology-in-design"
+                        className="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50"
+                      >
+                        Color Psychology
+                      </Link>
+                      <Link
+                        to="/blog/color-accessibility-guide"
+                        className="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50"
+                      >
+                        Accessibility Guide
+                      </Link>
+                      <Link
+                        to="/blog"
+                        className="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50"
+                      >
+                        All Articles
                       </Link>
                     </div>
                   </div>

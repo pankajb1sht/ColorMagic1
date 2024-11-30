@@ -12,6 +12,7 @@ import RandomPalette from './pages/RandomPalette';
 import BackgroundRemoval from './pages/BackgroundRemoval';
 import Profile from './pages/Profile';
 import LikedPalettes from './pages/LikedPalettes';
+import Blog from './pages/Blog';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import './i18n';
@@ -42,6 +43,8 @@ function App() {
             <Route path="/background-removal" element={<BackgroundRemoval />} />
             <Route path="/profile/:userId" element={<Profile />} />
             <Route path="/liked" element={<LikedPalettes />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<Blog />} />
           </Routes>
         </div>
         <Footer />
